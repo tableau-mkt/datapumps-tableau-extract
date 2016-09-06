@@ -1,0 +1,24 @@
+sudo: required
+language: node_js
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.6
+    packages:
+      - clang
+
+node_js:
+  - '4.5'
+
+before_install:
+  - wget --directory-prefix=$HOME/tableau-c-sdk https://downloads.tableau.com/tssoftware/Tableau-SDK-Linux-64Bit-${TABLEAU_SDK_VERSION}.deb
+  - sudo dpkg -i $HOME/tableau-c-sdk/Tableau-SDK-Linux-64Bit-${TABLEAU_SDK_VERSION}.deb
+
+install:
+  - npm install
+
+script:
+  - export MALLOC_CHECK_=1
+  - npm test

@@ -1,0 +1,27 @@
+{
+  "name": "datapumps-tableau-extract",
+  "version": "0.1.0",
+  "description": "Datapumps mixin for writing to the Tableau Data Extract format.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "keywords": [
+    "etl",
+    "datapumps",
+    "data",
+    "tableau",
+    "extract",
+    "tde"
+  ],
+  "author": "Eric Peterson",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "*",
+    "tableau-sdk": "^0.2.0"
+  },
+  "devDependencies": {
+    "datapumps": "^0.4.6",
+    "mocha": "^3.0.2"
+  }
+}
