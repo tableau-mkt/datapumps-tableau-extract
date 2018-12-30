@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var TDE = require('tableau-sdk'),
+  var ExtractApi = require('tableau-sdk'),
       Promise = require('bluebird');
 
   module.exports = function TableauExtractMixin(args) {
@@ -11,17 +11,19 @@
     }
 
     return function (target) {
-      target._tde = new TDE(args.path, args.definition);
+      target._tableauExtract = new ExtractApi(args.path, args.definition);
 
       /**
-       * Insert a single row into the Tableau Data Extract.
+       * Insert a single row into the Tableau Extract.
+       * @param {String} table
+       *   Defaults to "Extract" if no table name is provided.
        * @param {Object|Array} row
        * @returns Promise
        */
-      target.insertIntoExtract = function insertIntoExtract(row) {
+      target.insertIntoExtract = function insertIntoExtract(table, row) {
         return new Promise(function (resolve, reject) {
           try {
-            target._tde.insert(row);
+            target._tableauExtract.insert(table, row);
             resolve();
           }
           catch (err) {
@@ -31,32 +33,39 @@
       };
 
       /**
-       * Publish the extract to an instance of Tableau Server.
-       * @param {String} host
-       * @param {String} user
-       * @param {String} password
-       * @param {String|null} site
-       * @param {String|null} project
-       * @param {bool|null} overwrite
+       * Insert multiple rows into the Tableau Extract.
+       * @param {String} table
+       *   Defaults to "Extract" if no table name is provided.
+       * @param {Array} rows
        * @returns Promise
        */
-      target.publishToServer = function publishToServer(host, user, password, site, project, overwrite) {
+      target.insertMultipleIntoExtract = function insertMultipleIntoExtract(table, rows) {
         return new Promise(function (resolve, reject) {
           try {
-            target._tde.publish(host, user, password, site, project, overwrite);
-            resolve();
+            target._tableauExtract.insertMultiple(table, rows);
           }
           catch (err) {
             reject(err);
           }
         });
+      };
+
+      /**
+       * Add an additional table to the extract.
+       * @param {String} table
+       * @param {Object} definition
+       * @returns {target}
+       */
+      target.addTableToExtract = function addTableToExtract(table, definition) {
+        target._tableauExtract.addTable(table, definition);
+        return this;
       };
 
       /**
        * Close the extract.
        */
       target.closeExtract = function closeExtract() {
-        target._tde.close();
+        target._tableauExtract.close();
       };
 
       return target;

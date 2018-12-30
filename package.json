@@ -18,10 +18,14 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "*",
-    "tableau-sdk": "^0.2.0"
+    "tableau-sdk": "^1.1.0"
+  },
+  "peerDependencies": {
+    "datapumps": "^0.4.6"
   },
   "devDependencies": {
-    "datapumps": "^0.4.6",
-    "mocha": "^3.0.2"
+    "datapumps": "^0.5.1",
+    "fs-extra": "^7.0.1",
+    "mocha": "^5.2.0"
   }
 }
