@@ -14,20 +14,51 @@
       target._tableauExtract = new ExtractApi(args.path, args.definition);
 
       /**
-       * Insert a single row into the Tableau Data Extract.
+       * Insert a single row into the Tableau Extract.
+       * @param {String} table
+       *   Defaults to "Extract" if no table name is provided.
        * @param {Object|Array} row
        * @returns Promise
        */
-      target.insertIntoExtract = function insertIntoExtract(row) {
+      target.insertIntoExtract = function insertIntoExtract(table, row) {
         return new Promise(function (resolve, reject) {
           try {
-            target._tableauExtract.insert(row);
+            target._tableauExtract.insert(table, row);
             resolve();
           }
           catch (err) {
             reject(err);
           }
         });
+      };
+
+      /**
+       * Insert multiple rows into the Tableau Extract.
+       * @param {String} table
+       *   Defaults to "Extract" if no table name is provided.
+       * @param {Array} rows
+       * @returns Promise
+       */
+      target.insertMultipleIntoExtract = function insertMultipleIntoExtract(table, rows) {
+        return new Promise(function (resolve, reject) {
+          try {
+            target._tableauExtract.insertMultiple(table, rows);
+          }
+          catch (err) {
+            reject(err);
+          }
+        });
+      };
+
+      /**
+       * Add an additional table to the extract.
+       * @param {String} table
+       * @param {Object} definition
+       * @returns {target}
+       */
+      target.addTableToExtract = function addTableToExtract(table, definition) {
+        target._tableauExtract.addTable(table, definition);
+        return this;
       };
 
       /**

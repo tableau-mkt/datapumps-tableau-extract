@@ -64,6 +64,36 @@ pump
     });
 ```
 
+## Advanced Usage
+You can add multiple tables to your extract and insert data into specific
+tables like this.
+```javascript
+
+pump
+  .mixin(TableauExtractMixin({path: extPath, definition: extDef}))
+  .addTableToExtract(secondTableName, secondTableDef)
+  .process(function (data) {
+    if (data.hasOwnProperty('foo')) {
+      return pump.insertIntoExtract(secondTableName, data);
+    }
+    else {
+      return pump.insertIntoExtract(otherTableName, data);
+    }
+  });
+```
+
+You can also insert multiple rows of data at once (for example, using the
+node-datapumps built-in BatchMixin) like this.
+
+```javascript
+pump
+  .mixin(BatchMixin)
+  .mixin(TableauExtractMixin({path: extPath, definition: extDef}))
+  .process(function (rows) {
+    return pump.insertMultipleIntoExtract(rows);
+  });
+```
+
 For more information about how to define an extract see the Node.js
 [Tableau SDK usage details].
 
