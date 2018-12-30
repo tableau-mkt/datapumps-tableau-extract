@@ -1,9 +1,9 @@
-Datapumps: Tableau Data Extract [![Build Status](https://travis-ci.org/tableau-mkt/datapumps-tableau-extract.svg?branch=master)](https://travis-ci.org/tableau-mkt/datapumps-tableau-extract)
+Datapumps: Tableau Extract [![Build Status](https://travis-ci.org/tableau-mkt/datapumps-tableau-extract.svg?branch=master)](https://travis-ci.org/tableau-mkt/datapumps-tableau-extract)
 ==========================
 
 [Datapumps] is a node.js ETL framework that allows you to easily import, export,
 transform, or move data between systems. This package introduces a mixin that
-can be used with datapumps to write data to a [Tableau Data Extract].
+can be used with datapumps to write data to a [Tableau Extract].
 
 ## Installation
 
@@ -41,7 +41,7 @@ pump
 
   // Write data into a TDE in the current working directory.
   .mixin(TableauExtractMixin({
-    path: 'posts.tde',
+    path: 'posts.hyper',
     definition: {
       defaultAlias: 'JSON Placeholder Posts',
       columns: [
@@ -59,7 +59,7 @@ pump
 
   .run()
     .then(function() {
-      console.log('Done writing posts to the TDE.');
+      console.log('Done writing posts to the Extract.');
       pump.closeExtract();
     });
 ```
@@ -98,6 +98,6 @@ For more information about how to define an extract see the Node.js
 [Tableau SDK usage details].
 
 [Datapumps]: https://www.npmjs.com/package/datapumps
-[Tableau Data Extract]: https://www.tableau.com/about/blog/2014/7/understanding-tableau-data-extracts-part1
+[Tableau Extract]: https://www.tableau.com/about/blog/2014/7/understanding-tableau-data-extracts-part1
 [Node.js Tableau SDK]: https://github.com/tableau-mkt/node-tableau-sdk#installation
 [Tableau SDK usage details]: https://github.com/tableau-mkt/node-tableau-sdk#usage
