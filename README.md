@@ -3,8 +3,7 @@ Datapumps: Tableau Data Extract [![Build Status](https://travis-ci.org/tableau-m
 
 [Datapumps] is a node.js ETL framework that allows you to easily import, export,
 transform, or move data between systems. This package introduces a mixin that
-can be used with datapumps to write data to a [Tableau Data Extract] and
-optionally publish the extract to Tableau Server or Tableau Online.
+can be used with datapumps to write data to a [Tableau Data Extract].
 
 ## Installation
 
@@ -62,14 +61,11 @@ pump
     .then(function() {
       console.log('Done writing posts to the TDE.');
       pump.closeExtract();
-
-      console.log('Attempting to publish TDE to my Tableau Online site.');
-      pump.publishToServer('https://10ay.online.tableau.com', 'myUser', process.env.MYPW, 'mysite');
     });
 ```
 
-For more information about how to define an extract or publish an extract to
-Server, see the Node.js [Tableau SDK usage details].
+For more information about how to define an extract see the Node.js
+[Tableau SDK usage details].
 
 [Datapumps]: https://www.npmjs.com/package/datapumps
 [Tableau Data Extract]: https://www.tableau.com/about/blog/2014/7/understanding-tableau-data-extracts-part1

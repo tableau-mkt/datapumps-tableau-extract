@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var TDE = require('tableau-sdk'),
+  var ExtractApi = require('tableau-sdk'),
       Promise = require('bluebird');
 
   module.exports = function TableauExtractMixin(args) {
@@ -11,7 +11,7 @@
     }
 
     return function (target) {
-      target._tde = new TDE(args.path, args.definition);
+      target._tableauExtract = new ExtractApi(args.path, args.definition);
 
       /**
        * Insert a single row into the Tableau Data Extract.
@@ -21,29 +21,7 @@
       target.insertIntoExtract = function insertIntoExtract(row) {
         return new Promise(function (resolve, reject) {
           try {
-            target._tde.insert(row);
-            resolve();
-          }
-          catch (err) {
-            reject(err);
-          }
-        });
-      };
-
-      /**
-       * Publish the extract to an instance of Tableau Server.
-       * @param {String} host
-       * @param {String} user
-       * @param {String} password
-       * @param {String|null} site
-       * @param {String|null} project
-       * @param {bool|null} overwrite
-       * @returns Promise
-       */
-      target.publishToServer = function publishToServer(host, user, password, site, project, overwrite) {
-        return new Promise(function (resolve, reject) {
-          try {
-            target._tde.publish(host, user, password, site, project, overwrite);
+            target._tableauExtract.insert(row);
             resolve();
           }
           catch (err) {
@@ -56,7 +34,7 @@
        * Close the extract.
        */
       target.closeExtract = function closeExtract() {
-        target._tde.close();
+        target._tableauExtract.close();
       };
 
       return target;
