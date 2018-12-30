@@ -1,6 +1,6 @@
 {
   "name": "datapumps-tde",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Datapumps mixin for writing to the Tableau Data Extract format.",
   "main": "index.js",
   "scripts": {
