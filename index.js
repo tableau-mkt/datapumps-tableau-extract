@@ -43,6 +43,7 @@
         return new Promise(function (resolve, reject) {
           try {
             target._tableauExtract.insertMultiple(table, rows);
+            resolve();
           }
           catch (err) {
             reject(err);
