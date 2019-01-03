@@ -63,6 +63,23 @@
       };
 
       /**
+       * Write all rows that have been inserted into the extract to disk.
+       * @returns Promise
+       */
+      target.writeExtractToDisk = function writeExtractToDisk() {
+        return new Promise(function (resolve, reject) {
+          try {
+            target._tableauExtract.close();
+            target._tableauExtract = new ExtractApi(args.path, args.definition);
+            resolve();
+          }
+          catch (err) {
+            reject(err);
+          }
+        })
+      }
+
+      /**
        * Close the extract.
        */
       target.closeExtract = function closeExtract() {
